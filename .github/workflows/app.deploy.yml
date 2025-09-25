@@ -54,7 +54,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t alecigolini/hackaton-notificationsapi:latest .
+        run: docker build -f src/main/docker/Dockerfile.jvm -t alecigolini/hackaton-notificationsapi:latest .
 
       - name: Push Docker image
         run: docker push alecigolini/hackaton-notificationsapi:latest
