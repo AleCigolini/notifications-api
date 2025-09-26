@@ -53,8 +53,11 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
+
       - name: Build Docker image
-        run: docker build -f src/main/docker/Dockerfile.jvm -t alecigolini/hackaton-notificationsapi:latest .
+        run: docker build -f Dockerfile -t alecigolini/hackaton-notificationsapi:latest .
 
       - name: Push Docker image
         run: docker push alecigolini/hackaton-notificationsapi:latest
@@ -75,5 +78,3 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f ./kubernetes/ --recursive
-
-
