@@ -1,6 +1,5 @@
 package br.com.fiap.messages.domain;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.OffsetDateTime;
@@ -18,6 +17,7 @@ class EventTest {
         EventPayload eventPayload = new EventPayload();
         eventPayload.setContent("Test content");
         eventPayload.setCreatedAt(OffsetDateTime.now());
+        eventPayload.setStatus(StatusType.SUCCESS);
 
         Event event = new Event();
         event.setId(id);
@@ -54,6 +54,7 @@ class EventTest {
         newPayload.setContent("New content");
         OffsetDateTime now = OffsetDateTime.now();
         newPayload.setCreatedAt(now);
+        newPayload.setStatus(StatusType.SUCCESS);
 
         event.setId(newId);
         event.setType(newType);
@@ -66,5 +67,6 @@ class EventTest {
         assertEquals(newPayload, event.getEventPayload());
         assertEquals("New content", event.getEventPayload().getContent());
         assertEquals(now, event.getEventPayload().getCreatedAt());
+        assertEquals(StatusType.SUCCESS, event.getEventPayload().getStatus());
     }
 }
