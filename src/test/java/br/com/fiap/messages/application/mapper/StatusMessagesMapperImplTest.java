@@ -1,31 +1,22 @@
-package br.com.fiap.messages.application.mapper.impl;
+package br.com.fiap.messages.application.mapper;
 
+import br.com.fiap.messages.application.mapper.impl.StatusMessagesMapperImpl;
 import br.com.fiap.messages.common.dto.request.StatusVideoDTO;
 import br.com.fiap.messages.domain.MessageType;
 import br.com.fiap.messages.domain.Messages;
 import br.com.fiap.messages.domain.StatusType;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@ExtendWith(MockitoExtension.class)
 class StatusMessagesMapperImplTest {
 
-    @Mock
     private ModelMapper modelMapper;
-
-    @InjectMocks
     private StatusMessagesMapperImpl statusMessagesMapper;
 
     private StatusVideoDTO statusVideoDTO;
@@ -33,6 +24,8 @@ class StatusMessagesMapperImplTest {
 
     @BeforeEach
     void setUp() {
+        modelMapper = new ModelMapper();
+        statusMessagesMapper = new StatusMessagesMapperImpl(modelMapper);
         String validUserId = "123e4567-e89b-12d3-a456-426614174000";
         statusVideoDTO = new StatusVideoDTO();
         statusVideoDTO.setUserId(UUID.fromString(validUserId));
@@ -48,14 +41,12 @@ class StatusMessagesMapperImplTest {
 
     @Test
     void shouldMapStatusVideoDTOToMessagesDomainCorrectly() {
-        when(modelMapper.map(statusVideoDTO, Messages.class)).thenReturn(expectedMessages);
         Messages result = statusMessagesMapper.toDomain(statusVideoDTO);
         assertNotNull(result);
         assertEquals(expectedMessages.getRecipient(), result.getRecipient());
         assertEquals(expectedMessages.getStatus(), result.getStatus());
         assertEquals(expectedMessages.getContent(), result.getContent());
         assertEquals(expectedMessages.getType(), result.getType());
-        verify(modelMapper, times(1)).map(statusVideoDTO, Messages.class);
     }
 
     @Test
