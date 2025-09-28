@@ -3,6 +3,7 @@ package br.com.fiap.messages.presentation.impl;
 import br.com.fiap.messages.application.controller.MessagesController;
 import br.com.fiap.messages.common.dto.request.MessagesRequestDTO;
 import br.com.fiap.messages.common.dto.response.MessagesResponseDTO;
+import br.com.fiap.messages.presentation.MessagesRestController;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -14,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @RequiredArgsConstructor
-public class MessagesRestControllerImpl implements br.com.fiap.messages.presentation.MessagesRestController {
+public class MessagesRestControllerImpl implements MessagesRestController {
 
     private final MessagesController messagesController;
 

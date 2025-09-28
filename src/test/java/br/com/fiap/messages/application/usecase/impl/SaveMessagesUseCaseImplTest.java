@@ -3,6 +3,7 @@ package br.com.fiap.messages.application.usecase.impl;
 import br.com.fiap.messages.application.gateway.MessagesGateway;
 import br.com.fiap.messages.domain.MessageType;
 import br.com.fiap.messages.domain.Messages;
+import br.com.fiap.messages.domain.StatusType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ class SaveMessagesUseCaseImplTest {
         testMessage.setCreatedAt(OffsetDateTime.now());
         testMessage.setType(MessageType.P);
         testMessage.setRecipient("user123");
-        testMessage.setChannel("email");
+        testMessage.setStatus(StatusType.INFO);
     }
 
     @Test
@@ -51,7 +52,7 @@ class SaveMessagesUseCaseImplTest {
         assertEquals(testMessage.getCreatedAt(), result.getCreatedAt());
         assertEquals(testMessage.getType(), result.getType());
         assertEquals(testMessage.getRecipient(), result.getRecipient());
-        assertEquals(testMessage.getChannel(), result.getChannel());
+        assertEquals(testMessage.getStatus(), result.getStatus());
 
         verify(messagesGateway, times(1)).save(testMessage);
     }

@@ -4,6 +4,7 @@ import java.time.OffsetDateTime;
 
 public class EventPayload {
     private String content;
+    private StatusType status;
     private OffsetDateTime createdAt;
 
     public String getContent() {
@@ -20,5 +21,13 @@ public class EventPayload {
 
     public void setCreatedAt(OffsetDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public StatusType getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusType status) {
+        this.status = status;
     }
 }

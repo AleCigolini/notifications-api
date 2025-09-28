@@ -13,7 +13,7 @@ public class Messages {
     private OffsetDateTime createdAt;
     private MessageType type;
     private String recipient;
-    private String channel;
+    private StatusType status;
     private Set<JpaMessageReadsEntity> messageReads;
 
     public UUID getId() {
@@ -56,12 +56,12 @@ public class Messages {
         this.recipient = recipient;
     }
 
-    public String getChannel() {
-        return channel;
+    public StatusType getStatus() {
+        return status;
     }
 
-    public void setChannel(String channel) {
-        this.channel = channel;
+    public void setStatus(StatusType status) {
+        this.status = status;
     }
 
     public Set<JpaMessageReadsEntity> getMessageReads() {

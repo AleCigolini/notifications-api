@@ -13,6 +13,7 @@ import br.com.fiap.messages.common.interfaces.EventRedis;
 import br.com.fiap.messages.common.interfaces.MessagesDatabase;
 import br.com.fiap.messages.domain.MessageType;
 import br.com.fiap.messages.domain.Messages;
+import br.com.fiap.messages.domain.StatusType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -88,7 +89,7 @@ class MessagesControllerImplTest {
         requestDTO.setContent("Test message content");
         requestDTO.setType(MessageType.P);
         requestDTO.setRecipient("user123");
-        requestDTO.setChannel("email");
+        requestDTO.setStatus(StatusType.INFO);
 
         domainMessage = new Messages();
         domainMessage.setId(UUID.randomUUID());
@@ -96,7 +97,7 @@ class MessagesControllerImplTest {
         domainMessage.setCreatedAt(OffsetDateTime.now());
         domainMessage.setType(MessageType.P);
         domainMessage.setRecipient("user123");
-        domainMessage.setChannel("email");
+        domainMessage.setStatus(StatusType.INFO);
 
         responseDTO = new MessagesResponseDTO();
         responseDTO.setId(domainMessage.getId().toString());
@@ -104,7 +105,7 @@ class MessagesControllerImplTest {
         responseDTO.setCreated_at(domainMessage.getCreatedAt());
         responseDTO.setType(MessageType.P);
         responseDTO.setRecipient("user123");
-        responseDTO.setChannel("email");
+        responseDTO.setStatus(StatusType.INFO);
     }
 
     @Test
@@ -121,7 +122,7 @@ class MessagesControllerImplTest {
         assertEquals(responseDTO.getContent(), result.getContent());
         assertEquals(responseDTO.getType(), result.getType());
         assertEquals(responseDTO.getRecipient(), result.getRecipient());
-        assertEquals(responseDTO.getChannel(), result.getChannel());
+        assertEquals(responseDTO.getStatus(), result.getStatus());
 
         verify(requestMessagesMapper, times(1)).toDomain(requestDTO);
         verify(saveMessagesUseCase, times(1)).save(domainMessage);

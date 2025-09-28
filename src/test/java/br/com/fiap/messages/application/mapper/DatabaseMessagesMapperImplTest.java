@@ -4,6 +4,7 @@ import br.com.fiap.messages.application.mapper.impl.DatabaseMessagesMapperImpl;
 import br.com.fiap.messages.common.domain.entity.JpaMessagesEntity;
 import br.com.fiap.messages.domain.MessageType;
 import br.com.fiap.messages.domain.Messages;
+import br.com.fiap.messages.domain.StatusType;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 
@@ -26,7 +27,7 @@ class DatabaseMessagesMapperImplTest {
         domain.setCreatedAt(OffsetDateTime.parse("2021-02-02T12:00:00Z"));
         domain.setType(MessageType.B);
         domain.setRecipient("rcp");
-        domain.setChannel("SMS");
+        domain.setStatus(StatusType.INFO);
 
         JpaMessagesEntity entity = mapper.toEntity(domain);
 
@@ -35,7 +36,7 @@ class DatabaseMessagesMapperImplTest {
         assertThat(entity.getContent()).isEqualTo("db content");
         assertThat(entity.getType()).isEqualTo(MessageType.B);
         assertThat(entity.getRecipient()).isEqualTo("rcp");
-        assertThat(entity.getChannel()).isEqualTo("SMS");
+        assertThat(entity.getStatus()).isEqualTo(StatusType.INFO);
 
         Messages mappedBack = mapper.toDomain(entity);
 
@@ -44,6 +45,6 @@ class DatabaseMessagesMapperImplTest {
         assertThat(mappedBack.getContent()).isEqualTo("db content");
         assertThat(mappedBack.getType()).isEqualTo(MessageType.B);
         assertThat(mappedBack.getRecipient()).isEqualTo("rcp");
-        assertThat(mappedBack.getChannel()).isEqualTo("SMS");
+        assertThat(mappedBack.getStatus()).isEqualTo(StatusType.INFO);
     }
 }

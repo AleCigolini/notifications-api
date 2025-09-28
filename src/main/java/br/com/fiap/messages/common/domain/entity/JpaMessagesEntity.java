@@ -1,6 +1,7 @@
 package br.com.fiap.messages.common.domain.entity;
 
 import br.com.fiap.messages.domain.MessageType;
+import br.com.fiap.messages.domain.StatusType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,7 +35,9 @@ public class JpaMessagesEntity {
 
     private String recipient;
 
-    private String channel;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private StatusType status;
 
     @OneToMany(mappedBy = "message")
     private Set<JpaMessageReadsEntity> messageReads;

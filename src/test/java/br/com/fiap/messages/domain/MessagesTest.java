@@ -21,7 +21,7 @@ class MessagesTest {
         OffsetDateTime createdAt = OffsetDateTime.now();
         MessageType type = MessageType.P;
         String recipient = "user123";
-        String channel = "email";
+        StatusType status = StatusType.INFO;
         Set<JpaMessageReadsEntity> messageReads = new HashSet<>();
 
         Messages messages = new Messages();
@@ -30,7 +30,7 @@ class MessagesTest {
         messages.setCreatedAt(createdAt);
         messages.setType(type);
         messages.setRecipient(recipient);
-        messages.setChannel(channel);
+        messages.setStatus(status);
         messages.setMessageReads(messageReads);
 
         assertEquals(id, messages.getId());
@@ -38,7 +38,7 @@ class MessagesTest {
         assertEquals(createdAt, messages.getCreatedAt());
         assertEquals(type, messages.getType());
         assertEquals(recipient, messages.getRecipient());
-        assertEquals(channel, messages.getChannel());
+        assertEquals(status, messages.getStatus());
         assertEquals(messageReads, messages.getMessageReads());
     }
 
@@ -51,7 +51,7 @@ class MessagesTest {
         assertNull(messages.getCreatedAt());
         assertNull(messages.getType());
         assertNull(messages.getRecipient());
-        assertNull(messages.getChannel());
+        assertNull(messages.getStatus());
         assertNull(messages.getMessageReads());
     }
 
@@ -69,7 +69,7 @@ class MessagesTest {
         OffsetDateTime newCreatedAt = OffsetDateTime.now();
         MessageType newType = MessageType.P;
         String newRecipient = "newuser456";
-        String newChannel = "push";
+        StatusType newStatus = StatusType.ERROR;
         Set<JpaMessageReadsEntity> newMessageReads = new HashSet<>();
 
         messages.setId(newId);
@@ -77,7 +77,7 @@ class MessagesTest {
         messages.setCreatedAt(newCreatedAt);
         messages.setType(newType);
         messages.setRecipient(newRecipient);
-        messages.setChannel(newChannel);
+        messages.setStatus(newStatus);
         messages.setMessageReads(newMessageReads);
 
         assertEquals(newId, messages.getId());
@@ -85,7 +85,7 @@ class MessagesTest {
         assertEquals(newCreatedAt, messages.getCreatedAt());
         assertEquals(newType, messages.getType());
         assertEquals(newRecipient, messages.getRecipient());
-        assertEquals(newChannel, messages.getChannel());
+        assertEquals(newStatus, messages.getStatus());
         assertEquals(newMessageReads, messages.getMessageReads());
     }
 }

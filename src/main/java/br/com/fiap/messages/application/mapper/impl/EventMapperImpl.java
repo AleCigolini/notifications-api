@@ -19,6 +19,7 @@ public class EventMapperImpl implements EventMapper {
         mapper.typeMap(Messages.class, EventPayload.class).addMappings(mapper -> {
             mapper.map(Messages::getContent, EventPayload::setContent);
             mapper.map(Messages::getCreatedAt, EventPayload::setCreatedAt);
+            mapper.map(Messages::getStatus, EventPayload::setStatus);
         });
 
         // Converter para o campo aninhado

@@ -4,6 +4,7 @@ import br.com.fiap.messages.application.controller.MessagesController;
 import br.com.fiap.messages.common.dto.request.MessagesRequestDTO;
 import br.com.fiap.messages.common.dto.response.MessagesResponseDTO;
 import br.com.fiap.messages.domain.MessageType;
+import br.com.fiap.messages.domain.StatusType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,14 +38,14 @@ class MessagesRestControllerImplTest {
         requestDTO.setContent("Test message");
         requestDTO.setType(MessageType.P);
         requestDTO.setRecipient("user123");
-        requestDTO.setChannel("email");
+        requestDTO.setStatus(StatusType.INFO);
 
         responseDTO = new MessagesResponseDTO();
         responseDTO.setId("msg-123");
         responseDTO.setContent("Test message");
         responseDTO.setType(MessageType.P);
         responseDTO.setRecipient("user123");
-        responseDTO.setChannel("email");
+        responseDTO.setStatus(StatusType.INFO);
         responseDTO.setCreated_at(OffsetDateTime.now());
     }
 
@@ -59,7 +60,7 @@ class MessagesRestControllerImplTest {
         assertEquals(responseDTO.getContent(), result.getContent());
         assertEquals(responseDTO.getType(), result.getType());
         assertEquals(responseDTO.getRecipient(), result.getRecipient());
-        assertEquals(responseDTO.getChannel(), result.getChannel());
+        assertEquals(responseDTO.getStatus(), result.getStatus());
         assertEquals(responseDTO.getCreated_at(), result.getCreated_at());
 
         verify(messagesController, times(1)).save(requestDTO);

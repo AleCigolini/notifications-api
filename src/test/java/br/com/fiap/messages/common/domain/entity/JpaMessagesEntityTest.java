@@ -1,6 +1,7 @@
 package br.com.fiap.messages.common.domain.entity;
 
 import br.com.fiap.messages.domain.MessageType;
+import br.com.fiap.messages.domain.StatusType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class JpaMessagesEntityTest {
     private final OffsetDateTime testCreatedAt = OffsetDateTime.now();
     private final MessageType testType = MessageType.B;
     private final String testRecipient = "testUser@example.com";
-    private final String testChannel = "EMAIL";
+    private final StatusType statusTeste = StatusType.INFO;
 
     @BeforeEach
     void setUp() {
@@ -65,8 +66,8 @@ class JpaMessagesEntityTest {
 
         @Test
         void shouldSetAndGetChannelCorrectly() {
-            messagesEntity.setChannel(testChannel);
-            assertEquals(testChannel, messagesEntity.getChannel());
+            messagesEntity.setStatus(statusTeste);
+            assertEquals(statusTeste, messagesEntity.getStatus());
         }
     }
 
@@ -113,7 +114,7 @@ class JpaMessagesEntityTest {
                     testCreatedAt,
                     testType,
                     testRecipient,
-                    testChannel,
+                    statusTeste,
                     messageReads
             );
 
@@ -122,7 +123,7 @@ class JpaMessagesEntityTest {
             assertEquals(testCreatedAt, entity.getCreatedAt());
             assertEquals(testType, entity.getType());
             assertEquals(testRecipient, entity.getRecipient());
-            assertEquals(testChannel, entity.getChannel());
+            assertEquals(statusTeste, entity.getStatus());
             assertEquals(messageReads, entity.getMessageReads());
         }
     }
