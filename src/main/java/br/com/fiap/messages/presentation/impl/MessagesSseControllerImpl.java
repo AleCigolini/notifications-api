@@ -9,7 +9,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 
 @Path("/sse/messages")
@@ -21,14 +20,7 @@ public class MessagesSseControllerImpl {
 
     @GET
     @Produces(MediaType.SERVER_SENT_EVENTS)
-    public Response streamMessages(@QueryParam("clientId") String clientId) {
-        Multi<Event> stream = adapter.subscribe(clientId);
-        return Response.ok(stream)
-                .header("Access-Control-Allow-Origin", "https://storagefiapdev.z15.web.core.windows.net")
-                .header("Access-Control-Allow-Credentials", "true")
-                .header("Cache-Control", "no-cache")
-                .header("X-Accel-Buffering", "no")
-                .header("Connection", "keep-alive")
-                .build();
+    public Multi<Event> streamMessages(@QueryParam("clientId") String clientId) {
+        return adapter.subscribe(clientId);
     }
 }

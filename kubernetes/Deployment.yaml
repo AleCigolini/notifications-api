@@ -86,35 +86,6 @@ spec:
                 port:
                   number: 80
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: hackaton-notificationsapi-ingress-sse
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "36000"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "36000"
-    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-    nginx.ingress.kubernetes.io/proxy-buffering: "off"
-    nginx.ingress.kubernetes.io/keepalive: "on"
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "https://storagefiapdev.z15.web.core.windows.net"
-    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, OPTIONS"
-    nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization"
-    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
-    nginx.ingress.kubernetes.io/cors-max-age: "86400"
-spec:
-  ingressClassName: nginx
-  rules:
-    - http:
-        paths:
-          - path: /notifications/sse/messages
-            pathType: Prefix
-            backend:
-              service:
-                name: hackaton-notificationsapi-service
-                port:
-                  number: 80
----
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
