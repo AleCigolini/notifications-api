@@ -3,8 +3,8 @@ package br.com.fiap.messages.presentation.impl;
 import br.com.fiap.messages.domain.Event;
 import br.com.fiap.messages.infrastructure.sse.adapter.EventSenderAdapter;
 import io.smallrye.mutiny.Multi;
+import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,10 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/**
- * Unit tests for the MessagesSseControllerImpl class
- * Tests the server-sent events (SSE) controller behavior
- */
 @ExtendWith(MockitoExtension.class)
 class MessagesSseControllerImplTest {
 
@@ -41,11 +37,16 @@ class MessagesSseControllerImplTest {
     void shouldSubscribeClientToEventStream() {
         when(adapter.subscribe(clientId)).thenReturn(mockMulti);
 
-        Multi<Event> result = controller.streamMessages(clientId);
+        Response response = controller.streamMessages(clientId);
 
-        assertNotNull(result, "The returned Multi should not be null");
+        assertNotNull(response, "The returned Response should not be null");
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus(), "Status should be 200 OK");
+        assertEquals("https://storagefiapdev.z15.web.core.windows.net", response.getHeaderString("Access-Control-Allow-Origin"));
+        assertEquals("true", response.getHeaderString("Access-Control-Allow-Credentials"));
+        assertEquals("no-cache", response.getHeaderString("Cache-Control"));
+        assertEquals("no", response.getHeaderString("X-Accel-Buffering"));
+        assertEquals("keep-alive", response.getHeaderString("Connection"));
         verify(adapter).subscribe(clientId);
-        assertEquals(mockMulti, result, "The controller should return the Multi from the adapter");
     }
 
     @Test
@@ -53,11 +54,11 @@ class MessagesSseControllerImplTest {
         String nullClientId = null;
         when(adapter.subscribe(nullClientId)).thenReturn(mockMulti);
 
-        Multi<Event> result = controller.streamMessages(nullClientId);
+        Response response = controller.streamMessages(nullClientId);
 
-        assertNotNull(result, "The returned Multi should not be null even with null clientId");
+        assertNotNull(response, "The returned Response should not be null even with null clientId");
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus(), "Status should be 200 OK");
         verify(adapter).subscribe(nullClientId);
-        assertEquals(mockMulti, result, "The controller should return the Multi from the adapter");
     }
 
     @Test
@@ -65,10 +66,10 @@ class MessagesSseControllerImplTest {
         String emptyClientId = "";
         when(adapter.subscribe(emptyClientId)).thenReturn(mockMulti);
 
-        Multi<Event> result = controller.streamMessages(emptyClientId);
+        Response response = controller.streamMessages(emptyClientId);
 
-        assertNotNull(result, "The returned Multi should not be null even with empty clientId");
+        assertNotNull(response, "The returned Response should not be null even with empty clientId");
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus(), "Status should be 200 OK");
         verify(adapter).subscribe(emptyClientId);
-        assertEquals(mockMulti, result, "The controller should return the Multi from the adapter");
     }
 }
