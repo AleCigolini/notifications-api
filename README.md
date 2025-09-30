@@ -1,4 +1,4 @@
-# Hackaton - API de Notifications
+# Hackaton - API de Notificações
 
 API de notificações construída com Quarkus para persistência de mensagens, entrega em tempo real via SSE e integração com Kafka (Azure Event Hubs compatível) e Redis.
 
